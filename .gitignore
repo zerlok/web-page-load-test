@@ -133,3 +133,6 @@ dmypy.json
 
 # Local
 .local/
+
+# Drivers
+geckodriver*
