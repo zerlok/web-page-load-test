@@ -7,8 +7,22 @@ authors = ["zerlok <denergytro@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 selenium = "^4.1.0"
+pytest = "^7.0.0"
+pytest-benchmark = "^3.4.1"
 
 [tool.poetry.dev-dependencies]
+
+[tool.pytest.ini_options]
+testpaths = ["./tests"]
+addopts = """
+-p no:cacheprovider
+--benchmark-sort mean
+--benchmark-columns mean,stddev,min,max,ops
+--benchmark-min-time 1.0
+--benchmark-max-time 10.0
+--benchmark-min-rounds 10
+--benchmark-warmup-iterations 5
+"""
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
