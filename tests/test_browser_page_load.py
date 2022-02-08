@@ -1,13 +1,7 @@
 import pytest
 from pytest import fixture
 
-
-@fixture(params=(
-        "http://www.python.org",
-        "http://google.com",
-))
-def page_link(request):
-    return request.param
+from conftest import DATA_DIR, parametrize_from_csv
 
 
 @fixture()
@@ -23,5 +17,6 @@ def page_loader(browser):
     group="browser-page-load",
     warmup=True,
 )
-def test_page_link_load(benchmark, page_loader, page_link):
-    benchmark(page_loader, page_link)
+@parametrize_from_csv(DATA_DIR / "links.csv", "link")
+def test_page_link_load(benchmark, page_loader, link):
+    benchmark(page_loader, link)
