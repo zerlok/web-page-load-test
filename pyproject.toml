@@ -11,6 +11,9 @@ pytest = "^7.0.0"
 pytest-benchmark = "^3.4.1"
 pygal = "^3.0.0"
 pygaljs = "^1.0.2"
+matplotlib = "^3.5.1"
+numpy = "^1.22.2"
+pandas = "^1.4.0"
 
 [tool.poetry.dev-dependencies]
 
@@ -21,19 +24,10 @@ addopts = """
 --benchmark-sort mean
 --benchmark-columns mean,stddev,min,max,ops,rounds,iterations
 --benchmark-warmup off
---benchmark-min-time 0.1
---benchmark-max-time 1.0
---benchmark-min-rounds 1
+--benchmark-min-time 1.0
+--benchmark-max-time 10.0
+--benchmark-min-rounds 10
 """
-#addopts = """
-#-p no:cacheprovider
-#--benchmark-sort mean
-#--benchmark-columns mean,stddev,min,max,ops,rounds,iterations
-#--benchmark-warmup off
-#--benchmark-min-time 1.0
-#--benchmark-max-time 10.0
-#--benchmark-min-rounds 10
-#"""
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

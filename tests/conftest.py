@@ -23,12 +23,11 @@ def browser():
         yield driver
 
 
-def parametrize_from_csv(path: Path, key: str) -> t.Callable[[F], F]:
+def parametrize_from_csv(path: Path, keys: t.Sequence[str]) -> t.Callable[[F], F]:
     with path.open("r") as fd:
         values = [
-            record[key]
+            tuple(record.get(key) for key in keys)
             for record in csv.DictReader(fd)
-            if key in record
         ]
 
-    return pytest.mark.parametrize(argnames=(key,), argvalues=[(value,) for value in values], )
+    return pytest.mark.parametrize(argnames=keys, argvalues=values, )
