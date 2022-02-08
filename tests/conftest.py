@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 from pytest import fixture
 from selenium import webdriver
+from selenium.webdriver.firefox.service import Service
 
 F = t.TypeVar("F", bound=t.Callable[..., t.Any])
 
@@ -15,8 +16,11 @@ DATA_DIR = Path(__file__).parent / "data"
 
 @fixture(scope="session")
 def browser():
-    with closing(webdriver.Firefox(service_log_path=os.devnull)) as result:
-        yield result
+    # noinspection PyArgumentList
+    driver = webdriver.Firefox(service=Service(log_path=os.devnull))
+
+    with closing(driver):
+        yield driver
 
 
 def parametrize_from_csv(path: Path, key: str) -> t.Callable[[F], F]:
